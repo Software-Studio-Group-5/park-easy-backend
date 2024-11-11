@@ -34,7 +34,7 @@ public class MemberControler {
 //        System.out.println("memberEmail= " + memberEmail);
 
         memberService.save(memberDTO);
-        return "index";
-
+//        return "index";
+        return "login";
     }
 }
