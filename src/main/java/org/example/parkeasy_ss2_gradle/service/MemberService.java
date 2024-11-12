@@ -6,6 +6,8 @@ import org.example.parkeasy_ss2_gradle.entity.MemberEntity;
 import org.example.parkeasy_ss2_gradle.repository.MemberRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class MemberService {
@@ -16,6 +18,27 @@ public class MemberService {
         MemberEntity memberEntity = MemberEntity.toMemberEntity(memberDTO);
         memberRepository.save(memberEntity);
         // call save method from repository ( forwarding entity objects)
+    }
+
+    public MemberDTO login(MemberDTO memberDTO) {
+        /*
+            1. check email from DB query
+            2. check the password match between input and DB
+         */
+        Optional<MemberEntity> byMemberEmail = memberRepository.findByMemberEmail(memberDTO.getMemberEmail());
+        if(byMemberEmail.isPresent()){
+            MemberEntity memberEntity = byMemberEmail.get();
+            if (memberEntity.getMemberPassword().equals(memberDTO.getMemberPassword())){
+                // entity -> dto
+                MemberDTO dto = MemberDTO.toMemberDTO(memberEntity);
+                return dto;
+            } else {
+                return null;
+            }
+        } else {
+            return null;
+
+        }
     }
 }
 

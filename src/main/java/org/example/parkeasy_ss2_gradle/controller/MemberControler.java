@@ -1,5 +1,6 @@
 package org.example.parkeasy_ss2_gradle.controller;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.example.parkeasy_ss2_gradle.dto.MemberDTO;
 import org.example.parkeasy_ss2_gradle.service.MemberService;
@@ -37,4 +38,26 @@ public class MemberControler {
 //        return "index";
         return "login";
     }
+
+    @GetMapping("/member/login")
+    public String loginForm(){
+        return "login";
+    }
+
+    @PostMapping("/member/login")
+    public String login(@ModelAttribute MemberDTO memberDTO, HttpSession session){
+        MemberDTO loginResult = memberService.login(memberDTO);
+        if(loginResult != null){
+            // login success
+            session.setAttribute("loginEmail", loginResult.getMemberEmail());
+            return "main";
+        } else {
+            // login fail
+            return "login";
+        }
+    }
+
+
+
+
 }
