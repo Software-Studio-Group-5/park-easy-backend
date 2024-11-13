@@ -5,10 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.example.parkeasy_ss2_gradle.dto.MemberDTO;
 import org.example.parkeasy_ss2_gradle.service.MemberService;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequiredArgsConstructor
@@ -16,8 +13,7 @@ public class MemberControler {
     // Insert constructor
     private final MemberService memberService;
 
-
-    // call to registraion
+    // call to registration
     @GetMapping("/member/save")
     public String saveForm(){
         return "save";
@@ -33,7 +29,6 @@ public class MemberControler {
 //        System.out.println("memberEmail = " + memberEmail + ", memberPassword = " + memberPassword + ", memberName = " + memberName);
         System.out.println("memberDTO = " + memberDTO);
 //        System.out.println("memberEmail= " + memberEmail);
-
         memberService.save(memberDTO);
 //        return "index";
         return "login";
@@ -56,8 +51,6 @@ public class MemberControler {
             return "login";
         }
     }
-
-
 
 
 }
